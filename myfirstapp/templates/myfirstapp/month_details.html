@@ -1,0 +1,14 @@
+{% extends 'myfirstapp/base.html' %}
+{% load filters %}
+{% block content %}
+
+    <h1>This is Month details for {{ month|month_name }}</h1> 
+
+    {% for a in amnt %}
+        <h5>{{ a.author }}</h5>
+        <h1>{{ a.amount }}</h1>
+        <h1>{{ a.date_created }}</h1>
+    {% endfor %}
+
+
+{% endblock %}

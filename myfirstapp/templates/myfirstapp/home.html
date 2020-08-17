@@ -1,0 +1,137 @@
+{% extends 'myfirstapp/base.html' %}
+{% load filters %}
+{% block content %}
+
+<h4 style="color: white;">To Calendar</h4>
+
+{% for d in dt %}
+    {% ifchanged %}
+        <a href="{% url 'data-calendar' year=d.dates|date:'Y' %}">{{ d.dates|date:'Y' }}</a>
+    {% endifchanged %}
+{% endfor %}
+<hr style="background-color: white; ">
+<div style="border-radius: 5px;">
+        
+        <div class="scrolling-wrapper"> 
+            
+                    {% for d in dt %}
+                        {% ifchanged %}
+                       <!-- {{ d.eachrowcolor.color }} -->
+                         <div style="background-image: linear-gradient(90deg,white, {{ d.eachrowcolor }});" onclick=location.href="{% url 'month-details' d.dates|date:'Y' d.dates|date:'m' %}"; class="card-wrapper row-btn">
+                        
+                            <div class="m-text" style="font-size: 13px;">
+                                Total: GH₵{% month_number d.dates|date:'Y' d.dates|date:'m' %}
+                            </div>
+                            <div class="m-text" style="font-size: 12px;">
+                                
+                                Total No: {% count_items d.dates|date:'Y' d.dates|date:'m' %}
+                            </div>
+                            <hr style="background-color: white; height: 1px;">
+                            <div class="m-text">
+                                {{ d.dates|date:'M' }}
+                            </div>
+                            
+                         </div>
+                        {% endifchanged %}
+                        <!-- <a class="btn btn-primary" href="{% url 'month-details' d.dates|date:'Y' d.dates|date:'m' %}" role="button" style="margin-bottom: 10px;">{{ d.dates|date:'M' }}</a> -->
+                    {% endfor %}
+          
+        </div>
+        
+</div>
+<hr class="h-line" style="float: none;">
+
+<!-- Vertical -->
+<!-- <script>alert('{{ c_t.checkone }}{{ c_t.check_two }}')</script> -->
+{% if c_t %}
+        <div style="width: 90px;">
+            <a href="{% url 'delete-all' year=c_t.dates|date:'Y' %}" class="del-btn" onclick="" style="float: right; color: white; margin-left: 5px; display: {{ c_t.check_two }};" id="del_btn"><i class="fa fa-trash" aria-hidden="true"></i></a>  
+            
+            <a href="{% url 'check-two' year=c_t.dates|date:'Y' %}" style="display: {{ c_t.check_two }}; color: white; margin-left: 5px;"><i class="fa fa-check-square-o" aria-hidden="true"></i></a>
+        
+            <a href="{% url 'check-one' year=c_t.dates|date:'Y' %}" style="display: {{ c_t.checkone }}; color: white; margin-left: 5px;"><i class="fa fa-square-o" aria-hidden="true"></i></a>
+        </div>  
+{% endif %}    
+
+<!-- onclick="ckbtn()" id="myCheck" = middle one -->
+<!-- onclick="unckbtn()" id="myUnCheck" = last one -->
+<div style="background-color: #696969; border-radius: 5px;">
+    
+
+    <div class="scrolling-vertical-wrapper">
+        
+            {% for a in amnt %}
+                <div class="card-vertical month-card" style="background-color: {{ a.eachrowcolor }}">
+                    <div class="card-body">
+
+                        <a href="#" style="text-shadow: 2px 2px 4px #000000; color: white; margin-left: 0px; display: {{ a.checkall }};"><i class="fa fa-check-square-o" aria-hidden="true"></i></a>
+
+                        <div style="float: right;" class="more-icon">
+                            <a href="#" id="text-shade"><i class="fa fa-ellipsis-v" aria-hidden="true" style="color: white; margin-right: 15px;"></i></a>
+                        </div>
+
+                        <div class="more-diag">
+                            <a href="{% url 'update-item' pk=a.id %}" style="color: white; font-size: 20px; float: left; margin-left: 8px;"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            
+                            <a href="{% url 'delete-item' pk=a.id year=a.date_created|date:'Y' %}" style="color: white; font-size: 20px; float: right; margin-right: 8px;"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            
+                        </div>
+
+                        <h5 class="card-title c" style="color: black; text-shadow: 2px 2px 4px #ffffff;">
+                            ~ {{ a.author }}
+                        </h5>
+
+                        <p class="card-text c" id="text-shade">GH₵{{ a.amount|floatformat:"2" }}</p>
+                        <p class="card-text c" id="text-shade">{{ a.date_created }}</p>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+
+         
+    </div>
+</div>
+
+    <script>
+
+        var check_btn = document.getElementById('myCheck');
+        var uncheck_btn = document.getElementById('myUnCheck');
+        var delete_btn = document.getElementById('del_btn');
+
+        function show_check(){
+            check_btn.style.display = "block";
+        }
+
+        function show_uncheck(){
+            uncheck_btn.style.display = "block";
+        }
+
+        function ckbtn(){
+            show_uncheck()
+            check_btn.style.display = "none";
+            delete_btn.style.display = "none";
+
+        }
+
+        function unckbtn(){
+            uncheck_btn.style.display = "none";
+            delete_btn.style.display = "block";
+            show_check()
+
+        }
+
+        var childWindow = "";
+        var newTabUrl="http://127.0.0.1:8000";
+
+        function openNewTab(){
+            childWindow = window.open(newTabUrl);
+        }
+
+        function refreshExistingTab(){
+            openNewTab()
+            childWindow.location.href=newTabUrl;
+        }
+
+    </script>
+{% endblock content %}

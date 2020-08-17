@@ -1,0 +1,32 @@
+{% extends 'myfirstapp/base.html' %}
+{% load filters %}
+{% block content %}
+
+
+<div class="contents-wrapper">
+    <div style="padding: 8px;">
+        <a class="btn btn-outline-success" href="{% url 'save-amount' %}" role="button">Save</a>
+    </div>
+    <hr style="background-color: rgba(0,0,0,.5);">
+    <div class="large-box">
+        {% for d in dt %}
+            <div class="box-one" onclick=location.href="{% url 'my-home' year=d.dates|date:'Y' %}";>
+                <div style="font-size: 20px; text-shadow: 2px 2px 4px blue; font-family:Verdana, Geneva, Tahoma, sans-serif; padding: 10px;">
+                    
+                    {{ d.dates|date:'Y' }}
+                    
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <hr style="background-color: rgba(0,0,0,.5);">
+    <div class="section-one">
+        <div class="settings-card"></div>
+        <div class="calendar-card"></div>
+        <div class="charts-card"></div>
+    </div>
+
+</div>
+    
+ 
+{% endblock %}

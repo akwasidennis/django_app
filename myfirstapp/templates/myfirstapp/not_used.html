@@ -1,0 +1,55 @@
+<!-- {% extends 'myfirstapp/base.html' %}
+{% load filters %}
+{% block content %}
+    <a href="{% url 'save-amount' %}">Save Amount</a>
+    <h3 style="text-decoration: underline;">Horizontal Items</h3>
+
+    <div>
+        {% for d in dt %}
+            <a href="{% url 'my-home' year=d.dates|date:'Y' %}">{{ d.dates|date:'Y' }}</a>
+        {% endfor %}
+
+        
+        <div style="background-color: wheat;">
+            {% for a in amnt %}
+                {% ifchanged %}
+                    <div style="height: 200px; width: 300px; background-color: white; word-spacing: 20px; letter-spacing: 2px;">{% autoescape off %}{% each_month_cal a.date_created|date:'Y' a.date_created|date:'m' %}{% endautoescape %}</div>
+                    <div style="color: black; word-spacing: 5px;">{{ a.date_created|date:'M' }}: {% recorded_days_activity_cal a.date_created|date:'Y' a.date_created|date:'m' %}</div>
+                {% endifchanged %}
+            {% endfor %}
+        </div>
+    </div>
+    <hr>
+    
+     
+{% endblock %} -->
+
+<!--  -->
+
+<!-- 
+<div class="wrapper">
+    <div class="one">
+        <div class="box-container">
+            <div class="large-box">
+                <div class="box-one">
+                   2020
+                </div>
+                <div class="box-one"></div>
+                <div class="box-one"></div>
+                <div class="box-one"></div>
+                <div class="box-one"></div>
+                <div class="box-one"></div>
+                <div class="box-one"></div>
+                <div class="box-one"></div>
+                <div class="box-one"></div>
+                <div class="box-one"></div>
+                <div class="box-one"></div>
+                <div class="box-one"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="two">
+        
+    </div>
+</div> -->
